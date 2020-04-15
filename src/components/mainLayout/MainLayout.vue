@@ -30,7 +30,7 @@
                       <md-icon>favorite</md-icon>
                     </md-button>
                     <md-menu-content
-                      :class="getCartItems > 0 ? 'contentSize' : ''"
+                      :class="getWishListCount > 0 ? 'contentSize' : ''"
                     >
                       <div @click="$event.stopPropagation()">
                         <WishListCard />
