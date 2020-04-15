@@ -1,0 +1,46 @@
+{
+  "products": [
+    {
+      "productName": "Generic Cotton Hat",
+      "price": "607.00",
+      "imageUrl": "http://lorempixel.com/640/480",
+      "id": 1
+    },
+    {
+      "productName": "Incredible Fresh Chicken",
+      "price": "39.00",
+      "imageUrl": "http://lorempixel.com/640/480",
+      "id": 2
+    },
+    {
+      "productName": "Handmade Fresh Car",
+      "price": "735.00",
+      "imageUrl": "http://lorempixel.com/640/480",
+      "id": 3
+    },
+    {
+      "productName": "Gorgeous Fresh Hat",
+      "price": "854.00",
+      "imageUrl": "http://lorempixel.com/640/480",
+      "id": 4
+    },
+    {
+      "productName": "Handcrafted Cotton Cheese",
+      "price": "414.00",
+      "imageUrl": "http://lorempixel.com/640/480",
+      "id": 5
+    },
+    {
+      "productName": "Handcrafted Steel Shoes",
+      "price": "414.00",
+      "imageUrl": "http://lorempixel.com/640/480",
+      "id": 6
+    },
+    {
+      "productName": "Fantastic Cotton Chips",
+      "price": "414.00",
+      "imageUrl": "http://lorempixel.com/640/480",
+      "id": 7
+    }
+  ]
+}
