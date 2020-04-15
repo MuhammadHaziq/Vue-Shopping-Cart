@@ -24,12 +24,18 @@
             "
             @click="addToWishlist(product.id)"
           >
+            <md-tooltip md-direction="top">{{
+              product.addToWishList ? "Remove To WishList" : "Add To WishList"
+            }}</md-tooltip>
             <md-icon>thumb_up</md-icon>
           </md-button>
           <md-button
             :class="product.addToCart ? 'md-primary' : ''"
             @click="addToCart(product.id)"
           >
+            <md-tooltip md-direction="top">{{
+              product.addToCart ? "Remove To Cart" : "Add To Cart"
+            }}</md-tooltip>
             {{ product.addToCart ? "Remove To Cart" : "Add To Cart" }}
           </md-button>
         </md-card-actions>

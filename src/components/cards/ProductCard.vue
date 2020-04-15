@@ -21,6 +21,9 @@
               "
               @click="addToWishlist"
             >
+              <md-tooltip md-direction="top">{{
+                product.addToWishList ? "Remove To WishList" : "Add To WishList"
+              }}</md-tooltip>
               <md-icon>thumb_up</md-icon>
             </md-button>
           </div>
@@ -32,6 +35,9 @@
               :class="product.addToCart ? 'md-primary' : ''"
               @click="addToCart"
             >
+              <md-tooltip md-direction="top">{{
+                product.addToCart ? "Remove To Cart" : "Add To Cart"
+              }}</md-tooltip>
               {{ product.addToCart ? "Remove To Cart" : "Add To Cart" }}
             </md-button>
           </div>
