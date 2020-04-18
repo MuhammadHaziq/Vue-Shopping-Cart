@@ -41,7 +41,7 @@
         </md-card-actions>
       </md-card>
     </md-menu-item>
-    <md-button class="md-primary" @click="clearWishProducts"
+    <md-button class="md-primary" @click="clearWishProducts(getWisList)"
       >Clear All Products</md-button
     >
   </div>
@@ -69,8 +69,8 @@ export default {
       this.$store.dispatch("add_to_wishList", productId);
       // alert(productId);
     },
-    clearWishProducts() {
-      return this.$store.dispatch("clear_wishList_products");
+    clearWishProducts(data) {
+      return this.$store.dispatch("clear_wishList_products", data);
     }
   }
 };

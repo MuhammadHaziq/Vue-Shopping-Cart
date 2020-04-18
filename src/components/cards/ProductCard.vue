@@ -58,11 +58,19 @@ export default {
   },
   methods: {
     addToCart() {
-      this.$store.dispatch("add_to_cart", this.product.id);
+      const data = {
+        productId: this.product.id,
+        addToCart: this.product.addToCart
+      };
+      this.$store.dispatch("add_to_cart", data);
       // return (this.isActive = !this.isActive);
     },
     addToWishlist() {
-      this.$store.dispatch("add_to_wishList", this.product.id);
+      const data = {
+        productId: this.product.id,
+        addToCart: this.product.addToCart
+      };
+      this.$store.dispatch("add_to_wishList", data);
     }
   }
 };

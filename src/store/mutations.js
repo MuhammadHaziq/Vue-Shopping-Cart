@@ -7,8 +7,8 @@ export const ADD_TO_CART = (state, productId) => {
       return {
         ...item,
         addToCart: !item.addToCart,
-        quantity: item.quantity - 1,
-        shop_quantity: 1
+        // quantity: item.quantity - 1,
+        shop_quantity: !item.addToCart == true ? 1 : 0
       };
     }
     return item;
@@ -22,7 +22,7 @@ export const INCREASE_QUANTITY = (state, productId) => {
       if (item.quantity != item.shop_quantity) {
         return {
           ...item,
-          quantity: item.quantity - 1,
+          // quantity: item.quantity - 1,
           shop_quantity: item.shop_quantity + 1
         };
       }
@@ -38,7 +38,7 @@ export const DECREASE_QUANTITY = (state, productId) => {
       if (item.quantity == item.shop_quantity || item.shop_quantity > 1) {
         return {
           ...item,
-          quantity: item.quantity + 1,
+          // quantity: item.quantity + 1,
           shop_quantity: item.shop_quantity - 1
         };
       }
@@ -66,7 +66,7 @@ export const CLEAR_CART_PRODUCT = state => {
     return {
       ...item,
       addToCart: false,
-      quantity: 10,
+      quantity: 20,
       shop_quantity: 0
     };
   });

@@ -34,7 +34,7 @@
         </md-card-actions>
       </md-card>
     </md-menu-item>
-    <md-button class="md-primary" @click="clearCartProducts"
+    <md-button class="md-primary" @click="clearCartProducts(getCartProducts)"
       >Clear All Products</md-button
     >
     <md-button class="md-primary">
@@ -66,8 +66,8 @@ export default {
     decreaseQuantity(productId) {
       return this.$store.dispatch("decrease_quantity", productId);
     },
-    clearCartProducts() {
-      return this.$store.dispatch("clear_cart_products");
+    clearCartProducts(data) {
+      return this.$store.dispatch("clear_cart_products", data);
     }
   }
 };
