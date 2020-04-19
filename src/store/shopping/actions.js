@@ -4,6 +4,7 @@ export const getProducts = async ({ commit }) => {
   // var docRef = db.collection("Products");
   await db
     .collection("Products")
+    .orderBy("date", "desc")
     .get()
     .then(snapshot => {
       let data = [];
