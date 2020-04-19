@@ -105,8 +105,8 @@ export default {
       return `${count} user${plural} selected`;
     },
     deleteProducts() {
-      console.log(this.selected);
-      // return this.$store.dispatch("delete_products", this.selected);
+      // console.log(this.selected);
+      return this.$store.dispatch("products/delete_products", this.selected);
     },
     openDialog(data) {
       this.showDialog = !this.showDialog;

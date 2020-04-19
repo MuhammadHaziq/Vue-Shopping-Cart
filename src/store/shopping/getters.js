@@ -8,7 +8,7 @@ export const getCartItemPrice = state => {
   let totalPrice = 0;
   state.products.map(item => {
     if (item.addToCart) {
-      console.log(item);
+      // console.log(item);
       totalPrice += item.price * item.shop_quantity;
     }
   });

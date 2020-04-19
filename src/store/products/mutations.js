@@ -28,3 +28,17 @@ export const ADD_NEW_PRODUCT = (state, data) => {
   state.closeNew = !state.closeNew;
   state.allProducts = [data, ...state.allProducts];
 };
+
+export const DELETE_PRODUCTS = (state, data) => {
+  let allProducts = state.allProducts;
+  data.map(item => {
+    allProducts = allProducts.filter(items => {
+      return items.id != item.id;
+    });
+  });
+  state.allProducts = allProducts;
+  // console.log(allProducts);
+  // data.length == state.allProducts
+  //   ? (state.allProducts = [])
+  //   : state.allProducts;
+};

@@ -242,7 +242,6 @@ export default {
     },
     status: function(newVal, oldVal) {
       if (newVal !== oldVal) {
-        console.log("status", newVal);
         this.userSaved = true;
         this.sending = false;
         this.clearForm();

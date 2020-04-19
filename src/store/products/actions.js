@@ -39,7 +39,7 @@ export const add_new_product = async ({ commit }, data) => {
       addToWishList: false
     })
     .then(async docRef => {
-      console.log(docRef.id);
+      // console.log(docRef.id);
       await db
         .collection("Products")
         .doc(docRef.id)
@@ -85,4 +85,19 @@ export const update_product_detail = async ({ commit }, data) => {
       console.log(err.message);
       EventBus.$emit("MessageSnackBar", err.message);
     });
+};
+
+export const delete_products = async ({ commit }, data) => {
+  data.forEach(item => {
+    db.collection("Products")
+      .doc(item.id)
+      .delete()
+      .then(() => {
+        EventBus.$emit("MessageSnackBar", "Product Delete Successfully");
+        commit("DELETE_PRODUCTS", data);
+      })
+      .catch(err => {
+        EventBus.$emit("MessageSnackBar", err.message);
+      });
+  });
 };

@@ -216,7 +216,7 @@ export default {
     },
     saveUser() {
       this.sending = true;
-      console.log("form values", this.form);
+      // console.log("form values", this.form);
       // Instead of this timeout, here you can call your API
       return this.$store.dispatch("products/add_new_product", this.form);
     },

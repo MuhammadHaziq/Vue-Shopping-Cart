@@ -17,12 +17,5 @@ export default {
       (this.message = data), (this.status = true);
     });
   }
-  // watch: {
-  //   showSnackBar: (newVal, oldVal) => {
-  //     if (newVal !== oldVal) {
-  //       this.status = !this.status;
-  //     }
-  //   }
-  // }
 };
 </script>

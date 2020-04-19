@@ -51,14 +51,14 @@ export const increase_quantity = async ({ commit }, productId) => {
     .doc(productId)
     .get()
     .then(snapShot => {
-      console.log(snapShot.data());
+      // console.log(snapShot.data());
 
       if (
         Number(snapShot.data().quantity) !==
         Number(snapShot.data().shop_quantity)
       ) {
         const qunatityUpdate = snapShot.data().shop_quantity + 1;
-        console.log(qunatityUpdate);
+        // console.log(qunatityUpdate);
         var creditRef = db.collection("Products").doc(productId);
         return creditRef
           .update({
@@ -86,7 +86,7 @@ export const decrease_quantity = async ({ commit }, productId) => {
           Number(snapShot.data().shop_quantity) ||
         Number(snapShot.data().shop_quantity) > 1
       ) {
-        console.log(snapShot.data());
+        // console.log(snapShot.data());
         const qunatityUpdate = snapShot.data().shop_quantity - 1;
         var creditRef = db.collection("Products").doc(productId);
         return creditRef
@@ -105,7 +105,6 @@ export const decrease_quantity = async ({ commit }, productId) => {
 };
 
 export const add_to_wishList = async ({ commit }, data) => {
-  console.log(data);
   await db
     .collection("Products")
     .doc(data.productId)
