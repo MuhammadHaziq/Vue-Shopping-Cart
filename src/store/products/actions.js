@@ -1,4 +1,5 @@
 import db from "@/firebase/firebaseConfig";
+import { EventBus } from "../../main";
 
 export const getProducts = async ({ commit }) => {
   await db
@@ -17,6 +18,7 @@ export const getProducts = async ({ commit }) => {
     })
     .catch(err => {
       console.log(err);
+      EventBus.$emit("MessageSnackBar", err.message);
     });
 };
 
@@ -50,14 +52,17 @@ export const add_new_product = async ({ commit }, data) => {
             "ADD_NEW_PRODUCT",
             Object.assign({}, { id: docRef.id }, { ...snapShot.data() })
           );
+          EventBus.$emit("MessageSnackBar", "New Product Addedd Succfully");
         })
         .catch(err => {
           console.log(err.message);
+          EventBus.$emit("MessageSnackBar", err.message);
         });
       console.log("Document written with ID: ", docRef.id);
     })
     .catch(function(error) {
       console.error("Error adding document: ", error);
+      EventBus.$emit("MessageSnackBar", error.message);
     });
 };
 
@@ -74,8 +79,10 @@ export const update_product_detail = async ({ commit }, data) => {
     })
     .then(() => {
       commit("UPDATE_PRODUCT", data);
+      EventBus.$emit("MessageSnackBar", "Update Product Succfully");
     })
     .catch(err => {
       console.log(err.message);
+      EventBus.$emit("MessageSnackBar", err.message);
     });
 };

@@ -65,16 +65,18 @@
       @close="openDialog({})"
     />
     <NewProduct :addNewProduct="this.addNewProduct" @close="openNewProduct" />
-    <p>Selected:</p>
-    {{ selected }}
+    <MessageSnackBar />
+    <!-- <p>Selected:</p>
+    {{ selected }} -->
   </div>
 </template>
 <script>
 import { mapState } from "vuex";
 import UpdateModal from "../components/modal/UpdateModal";
 import NewProduct from "../components/modal/NewProduct";
+import MessageSnackBar from "../components/snackBar/MessageSnackBar";
 export default {
-  components: { UpdateModal, NewProduct },
+  components: { UpdateModal, NewProduct, MessageSnackBar },
   name: "Products",
   data: () => ({
     selected: [],

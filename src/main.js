@@ -6,6 +6,7 @@ import Vuelidate from "vuelidate";
 import store from "@/store";
 import "vue-material/dist/vue-material.min.css";
 import "vue-material/dist/theme/default.css";
+export const EventBus = new Vue();
 Vue.use(VueMaterial);
 Vue.use(Vuelidate);
 Vue.config.productionTip = false;

@@ -139,10 +139,6 @@
               >
             </md-card-actions>
           </md-card>
-
-          <md-snackbar :md-active.sync="userSaved"
-            >The user {{ lastUser }} was saved with success!</md-snackbar
-          >
         </form>
       </md-dialog-content>
     </md-dialog>

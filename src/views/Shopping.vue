@@ -9,14 +9,18 @@
         <ProductCard :key="product.id" :product="product" />
       </div>
     </div>
+    <MessageSnackBar />
   </div>
 </template>
 <script>
 import ProductCard from "@/components/cards/ProductCard";
+import MessageSnackBar from "../components/snackBar/MessageSnackBar";
+
 import { mapState } from "vuex";
 export default {
   components: {
-    ProductCard
+    ProductCard,
+    MessageSnackBar
   },
   name: "Shopping",
   data() {

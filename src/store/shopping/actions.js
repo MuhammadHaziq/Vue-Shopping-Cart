@@ -1,5 +1,5 @@
 import db from "@/firebase/firebaseConfig";
-
+import { EventBus } from "../../main";
 export const getProducts = async ({ commit }) => {
   // var docRef = db.collection("Products");
   await db
@@ -26,6 +26,7 @@ export const getProducts = async ({ commit }) => {
       commit("GET_ALL_PRODUCTS", data);
     })
     .catch(err => {
+      EventBus.$emit("MessageSnackBar", err.message);
       console.log(err);
     });
 };
@@ -37,9 +38,11 @@ export const add_to_cart = async ({ commit }, data) => {
     .update({
       addToCart: !data.addToCart,
       shop_quantity: !data.addToCart == true ? 1 : 0
+    })
+    .then(async () => {
+      await commit("ADD_TO_CART", data.productId);
+      EventBus.$emit("MessageSnackBar", "Add Into Cart");
     });
-
-  await commit("ADD_TO_CART", data.productId);
 };
 
 export const increase_quantity = async ({ commit }, productId) => {
@@ -66,6 +69,7 @@ export const increase_quantity = async ({ commit }, productId) => {
           })
           .catch(err => {
             console.log(err.message);
+            EventBus.$emit("MessageSnackBar", err.message);
           });
       }
     });
@@ -94,6 +98,7 @@ export const decrease_quantity = async ({ commit }, productId) => {
           })
           .catch(err => {
             console.log(err.message);
+            EventBus.$emit("MessageSnackBar", err.message);
           });
       }
     });
@@ -106,8 +111,11 @@ export const add_to_wishList = async ({ commit }, data) => {
     .doc(data.productId)
     .update({
       addToWishList: !data.addToWishList
+    })
+    .then(async () => {
+      await commit("ADD_TO_WISHLIST", data.productId);
+      EventBus.$emit("MessageSnackBar", "Add Into WishList");
     });
-  await commit("ADD_TO_WISHLIST", data.productId);
 };
 
 export const clear_cart_products = async ({ commit }, data) => {
@@ -125,6 +133,7 @@ export const clear_cart_products = async ({ commit }, data) => {
       })
       .catch(err => {
         console.log(err.message);
+        EventBus.$emit("MessageSnackBar", err.message);
         return false;
       });
   });
@@ -145,6 +154,7 @@ export const clear_wishList_products = async ({ commit }, data) => {
       })
       .catch(err => {
         console.log(err.message);
+        EventBus.$emit("MessageSnackBar", err.message);
         return false;
       });
   });
