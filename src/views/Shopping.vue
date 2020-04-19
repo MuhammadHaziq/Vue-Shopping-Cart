@@ -13,23 +13,27 @@
 </template>
 <script>
 import ProductCard from "@/components/cards/ProductCard";
+import { mapState } from "vuex";
 export default {
   components: {
     ProductCard
   },
-  name: "Home",
+  name: "Shopping",
   data() {
     return {
       totalCards: 4
     };
   },
   computed: {
-    products() {
-      return this.$store.state.products;
-    }
+    ...mapState({
+      products: state => state.shoppingState.products
+    })
+    // products() {
+    //   return this.$store.shoppingState.state.products;
+    // },
   },
   mounted() {
-    this.$store.dispatch("getProducts");
+    this.$store.dispatch("shoppingState/getProducts");
   }
 };
 </script>

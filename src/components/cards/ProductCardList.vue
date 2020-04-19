@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "ProductCardList",
   data() {
@@ -52,22 +54,26 @@ export default {
     };
   },
   computed: {
-    getCartProducts() {
-      return this.$store.getters.getCartProducts;
-    },
-    getCartTotalPrice() {
-      return this.$store.getters.getCartItemPrice;
-    }
+    ...mapGetters("shoppingState", {
+      getCartProducts: "getCartProducts",
+      getCartTotalPrice: "getCartItemPrice"
+    })
+    // getCartProducts() {
+    //   return this.$store.getters.getCartProducts;
+    // },
+    // getCartTotalPrice() {
+    //   return this.$store.getters.getCartItemPrice;
+    // }
   },
   methods: {
     increaseQuantity(productId) {
-      return this.$store.dispatch("increase_quantity", productId);
+      return this.$store.dispatch("shoppingState/increase_quantity", productId);
     },
     decreaseQuantity(productId) {
-      return this.$store.dispatch("decrease_quantity", productId);
+      return this.$store.dispatch("shoppingState/decrease_quantity", productId);
     },
     clearCartProducts(data) {
-      return this.$store.dispatch("clear_cart_products", data);
+      return this.$store.dispatch("shoppingState/clear_cart_products", data);
     }
   }
 };

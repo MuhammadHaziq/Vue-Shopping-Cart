@@ -100,6 +100,7 @@ export const decrease_quantity = async ({ commit }, productId) => {
 };
 
 export const add_to_wishList = async ({ commit }, data) => {
+  console.log(data);
   await db
     .collection("Products")
     .doc(data.productId)

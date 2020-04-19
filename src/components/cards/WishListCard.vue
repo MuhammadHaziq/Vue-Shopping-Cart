@@ -22,7 +22,7 @@
                 ? 'md-icon-button md-accent'
                 : 'md-icon-button md-primary'
             "
-            @click="addToWishlist(product.id)"
+            @click="addToWishlist(product)"
           >
             <md-tooltip md-direction="top">{{
               product.addToWishList ? "Remove To WishList" : "Add To WishList"
@@ -31,7 +31,7 @@
           </md-button>
           <md-button
             :class="product.addToCart ? 'md-primary' : ''"
-            @click="addToCart(product.id)"
+            @click="addToCart(product)"
           >
             <md-tooltip md-direction="top">{{
               product.addToCart ? "Remove To Cart" : "Add To Cart"
@@ -41,13 +41,15 @@
         </md-card-actions>
       </md-card>
     </md-menu-item>
-    <md-button class="md-primary" @click="clearWishProducts(getWisList)"
-      >Clear All Products</md-button
+    <md-button class="md-primary" @click="clearWishProducts(getWisList)">
+      Clear All Products</md-button
     >
   </div>
 </template>
-
+<!-- @click="clearWishProducts(getWisList)" -->
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "WishListCard",
   data() {
@@ -56,21 +58,40 @@ export default {
     };
   },
   computed: {
-    getWisList() {
-      return this.$store.getters.getWishList;
-    }
+    ...mapGetters("shoppingState", {
+      getWisList: "getWishList"
+    })
+    // getWisList() {
+    //   return this.$store.getters.getWishList;
+    // }
   },
   methods: {
-    addToCart(productId) {
-      this.$store.dispatch("add_to_cart", productId);
+    // ...mapActions("shoppingState", [
+    //   "add_to_cart",
+    //   "add_to_wishList",
+    //   "clear_wishList_products"
+    // ])
+    addToCart(product) {
+      const data = {
+        productId: product.id,
+        addToCart: product.addToCart
+      };
+      this.$store.dispatch("shoppingState/add_to_cart", data);
       // return (this.isActive = !this.isActive);
     },
-    addToWishlist(productId) {
-      this.$store.dispatch("add_to_wishList", productId);
+    addToWishlist(product) {
+      const data = {
+        productId: product.id,
+        addToCart: product.addToCart
+      };
+      this.$store.dispatch("shoppingState/add_to_wishList", data);
       // alert(productId);
     },
     clearWishProducts(data) {
-      return this.$store.dispatch("clear_wishList_products", data);
+      return this.$store.dispatch(
+        "shoppingState/clear_wishList_products",
+        data
+      );
     }
   }
 };

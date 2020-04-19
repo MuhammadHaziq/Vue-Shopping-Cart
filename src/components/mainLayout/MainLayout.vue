@@ -36,12 +36,6 @@
                         <WishListCard />
                       </div>
                     </md-menu-content>
-
-                    <!-- <md-menu-content>
-                      <md-menu-item><ProductCardList /></md-menu-item>
-                      <md-menu-item>My Item 2</md-menu-item>
-                      <md-menu-item>My Item 3</md-menu-item>
-                    </md-menu-content> -->
                   </md-menu>
                 </md-badge>
               </md-list-item>
@@ -77,11 +71,11 @@
 
         <div class="md-toolbar-row">
           <md-tabs class="md-primary">
-            <md-tab id="tab-pages" md-label="All Products" to="/"></md-tab>
+            <md-tab id="tab-pages" md-label="Shopping" to="/"></md-tab>
             <md-tab
               id="tab-home"
-              md-label="Create ToDo"
-              to="/create-todo"
+              md-label="Products"
+              to="/all-products"
             ></md-tab>
           </md-tabs>
         </div>
@@ -95,11 +89,11 @@
         <md-list>
           <md-list-item to="/">
             <md-icon>send</md-icon>
-            <span class="md-list-item-text">All Products</span>
+            <span class="md-list-item-text">Shopping</span>
           </md-list-item>
-          <md-list-item to="/create-todo">
+          <md-list-item to="/all-products">
             <md-icon>move_to_inbox</md-icon>
-            <span class="md-list-item-text">Create ToDo</span>
+            <span class="md-list-item-text">Products</span>
           </md-list-item>
         </md-list>
       </md-app-drawer>
@@ -123,7 +117,7 @@
   flex-flow: row !important;
 }
 .contentSize {
-  min-height: 68vh;
+  max-height: 100vh;
   min-width: 376px;
   top: 42px;
   left: 874px;
@@ -138,6 +132,8 @@
 <script>
 import ProductCardList from "@/components/cards/ProductCardList";
 import WishListCard from "@/components/cards/WishListCard";
+import { mapGetters } from "vuex";
+
 export default {
   components: {
     ProductCardList,
@@ -148,15 +144,16 @@ export default {
     menuVisible: false
   }),
   computed: {
-    // ...mapGetters({
-    //   cartItemCount: "cartItemCount"
-    // })
-    getCartItems() {
-      return this.$store.getters.cartItemCount;
-    },
-    getWishListCount() {
-      return this.$store.getters.getWishListCount;
-    }
+    ...mapGetters("shoppingState", {
+      getCartItems: "cartItemCount",
+      getWishListCount: "getWishListCount"
+    })
+    // getCartItems() {
+    //   return this.$store.getters.shoppingState.cartItemCount;
+    // },
+    // getWishListCount() {
+    //   return this.$store.getters.shoppingState.getWishListCount;
+    // }
   },
   methods: {
     toggleMenu() {

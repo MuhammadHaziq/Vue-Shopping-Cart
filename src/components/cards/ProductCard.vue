@@ -62,7 +62,7 @@ export default {
         productId: this.product.id,
         addToCart: this.product.addToCart
       };
-      this.$store.dispatch("add_to_cart", data);
+      this.$store.dispatch("shoppingState/add_to_cart", data);
       // return (this.isActive = !this.isActive);
     },
     addToWishlist() {
@@ -70,7 +70,7 @@ export default {
         productId: this.product.id,
         addToCart: this.product.addToCart
       };
-      this.$store.dispatch("add_to_wishList", data);
+      this.$store.dispatch("shoppingState/add_to_wishList", data);
     }
   }
 };
