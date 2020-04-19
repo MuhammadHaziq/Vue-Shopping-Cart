@@ -8,6 +8,9 @@
     >
       <md-table-toolbar>
         <h1 class="md-title">Products</h1>
+        <md-button class="md-primary md-raised" @click="openNewProduct"
+          >Add Product</md-button
+        >
       </md-table-toolbar>
 
       <md-table-toolbar slot="md-table-alternate-header" slot-scope="{ count }">
@@ -61,6 +64,7 @@
       :row="this.updateRow"
       @close="openDialog({})"
     />
+    <NewProduct :addNewProduct="this.addNewProduct" @close="openNewProduct" />
     <p>Selected:</p>
     {{ selected }}
   </div>
@@ -68,13 +72,15 @@
 <script>
 import { mapState } from "vuex";
 import UpdateModal from "../components/modal/UpdateModal";
+import NewProduct from "../components/modal/NewProduct";
 export default {
-  components: { UpdateModal },
+  components: { UpdateModal, NewProduct },
   name: "Products",
   data: () => ({
     selected: [],
     updateRow: {},
-    showDialog: false
+    showDialog: false,
+    addNewProduct: false
   }),
   computed: {
     ...mapState({
@@ -101,9 +107,11 @@ export default {
       // return this.$store.dispatch("delete_products", this.selected);
     },
     openDialog(data) {
-      console.log(data);
       this.showDialog = !this.showDialog;
       this.updateRow = data;
+    },
+    openNewProduct() {
+      this.addNewProduct = !this.addNewProduct;
     }
   }
 };

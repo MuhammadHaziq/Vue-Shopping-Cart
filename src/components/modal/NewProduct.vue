@@ -1,6 +1,9 @@
 <template>
   <div>
-    <md-dialog :md-active.sync="showDialog" :md-click-outside-to-close="false">
+    <md-dialog
+      :md-active.sync="addNewProduct"
+      :md-click-outside-to-close="false"
+    >
       <md-dialog-title>Update Product</md-dialog-title>
       <md-dialog-content>
         <form novalidate class="md-layout" @submit.prevent="validateUser">
@@ -132,7 +135,7 @@
 
             <md-card-actions>
               <md-button type="submit" class="md-primary" :disabled="sending"
-                >Update Product</md-button
+                >Create Product</md-button
               >
               <md-button type="button" class="md-primary" @click="close"
                 >Close</md-button
@@ -154,9 +157,9 @@ import { mapState } from "vuex";
 import { validationMixin } from "vuelidate";
 import { required, minLength, maxLength } from "vuelidate/lib/validators";
 export default {
-  props: ["showDialog", "row"],
+  props: ["addNewProduct"],
   mixins: [validationMixin],
-  name: "UpdateModal",
+  name: "NewProduct",
   data: () => ({
     form: {
       productName: null,
@@ -213,12 +216,9 @@ export default {
     },
     saveUser() {
       this.sending = true;
+      console.log("form values", this.form);
       // Instead of this timeout, here you can call your API
-      const data = {
-        update: this.form,
-        id: this.row.id
-      };
-      return this.$store.dispatch("products/update_product_detail", data);
+      return this.$store.dispatch("products/add_new_product", this.form);
     },
     validateUser() {
       this.$v.$touch();
@@ -231,22 +231,12 @@ export default {
   },
   computed: {
     ...mapState({
-      status: state => state.products.status
+      closeNew: state => state.products.closeNew
     })
   },
   watch: {
-    row: function(newVal, oldVal) {
-      // watch it
-      this.form.productName = newVal.name;
-      this.form.productPrice = newVal.price;
-      this.form.productQuantity = newVal.quantity;
-      this.form.productDescription = newVal.description;
-      this.form.productImage = newVal.image_url;
-      console.log("Prop changed: ", newVal, " | was: ", oldVal);
-    },
-    status: function(newVal, oldVal) {
+    closeNew: function(newVal, oldVal) {
       if (newVal !== oldVal) {
-        console.log("status", newVal);
         this.userSaved = true;
         this.sending = false;
         this.clearForm();

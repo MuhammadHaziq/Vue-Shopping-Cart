@@ -23,3 +23,8 @@ export const UPDATE_PRODUCT = (state, data) => {
   //   status: !state.status
   // };
 };
+
+export const ADD_NEW_PRODUCT = (state, data) => {
+  state.closeNew = !state.closeNew;
+  state.allProducts = [data, ...state.allProducts];
+};

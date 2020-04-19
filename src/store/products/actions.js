@@ -3,7 +3,9 @@ import db from "@/firebase/firebaseConfig";
 export const getProducts = async ({ commit }) => {
   await db
     .collection("Products")
+    .orderBy("date", "desc")
     .get()
+
     .then(snapshot => {
       let data = [];
       snapshot.docs.forEach(snap => {
@@ -15,6 +17,47 @@ export const getProducts = async ({ commit }) => {
     })
     .catch(err => {
       console.log(err);
+    });
+};
+
+export const add_new_product = async ({ commit }, data) => {
+  const categoryId = Math.floor(Math.random() * 10);
+  await db
+    .collection("Products")
+    .add({
+      categoryId: categoryId,
+      name: data.productName,
+      description: data.productDescription,
+      price: data.productPrice,
+      images: data.productImage,
+      image_url: data.productImage,
+      quantity: data.productQuantity,
+      date: Date.now(),
+      addToCart: false,
+      addToWishList: false
+    })
+    .then(async docRef => {
+      console.log(docRef.id);
+      await db
+        .collection("Products")
+        .doc(docRef.id)
+        .get()
+        .then(snapShot => {
+          // console.log(
+          //   Object.assign({}, { id: docRef.id }, { ...snapShot.data() })
+          // );
+          commit(
+            "ADD_NEW_PRODUCT",
+            Object.assign({}, { id: docRef.id }, { ...snapShot.data() })
+          );
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+      console.log("Document written with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+      console.error("Error adding document: ", error);
     });
 };
 

@@ -1,4 +1,5 @@
 export default {
   allProducts: [],
-  status: false
+  status: false,
+  closeNew: false
 };
