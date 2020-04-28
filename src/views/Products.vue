@@ -11,6 +11,13 @@
         <md-button class="md-primary md-raised" @click="openNewProduct"
           >Add Product</md-button
         >
+        <md-field md-clearable class="md-toolbar-section-end">
+          <md-input
+            placeholder="Search..."
+            v-model="search"
+            @input="searchOnTable"
+          />
+        </md-field>
       </md-table-toolbar>
 
       <md-table-toolbar slot="md-table-alternate-header" slot-scope="{ count }">
@@ -75,10 +82,22 @@ import { mapState } from "vuex";
 import UpdateModal from "../components/modal/UpdateModal";
 import NewProduct from "../components/modal/NewProduct";
 import MessageSnackBar from "../components/snackBar/MessageSnackBar";
+const toLower = text => {
+  return text.toString().toLowerCase();
+};
+
+const searchByName = (items, term) => {
+  if (term) {
+    return items.filter(item => toLower(item.name).includes(toLower(term)));
+  }
+
+  return items;
+};
 export default {
   components: { UpdateModal, NewProduct, MessageSnackBar },
   name: "Products",
   data: () => ({
+    search: "",
     selected: [],
     updateRow: {},
     showDialog: false,
@@ -114,6 +133,9 @@ export default {
     },
     openNewProduct() {
       this.addNewProduct = !this.addNewProduct;
+    },
+    searchOnTable() {
+      this.searched = searchByName(this.products, this.search);
     }
   }
 };

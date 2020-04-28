@@ -70,13 +70,15 @@
         </div>
 
         <div class="md-toolbar-row">
-          <md-tabs class="md-primary">
-            <md-tab id="tab-pages" md-label="Shopping" to="/"></md-tab>
+          <md-tabs class="md-primary" md-sync-route>
+            <md-tab id="tab-shopping" md-label="Shopping" to="/" exact></md-tab>
             <md-tab
-              id="tab-home"
+              id="tab-products"
               md-label="Products"
               to="/all-products"
+              exact
             ></md-tab>
+            <md-tab id="tab-login" md-label="Login" to="/login" exact></md-tab>
           </md-tabs>
         </div>
       </md-app-toolbar>
@@ -94,6 +96,10 @@
           <md-list-item to="/all-products">
             <md-icon>move_to_inbox</md-icon>
             <span class="md-list-item-text">Products</span>
+          </md-list-item>
+          <md-list-item to="/login">
+            <md-icon>move_to_inbox</md-icon>
+            <span class="md-list-item-text">Login</span>
           </md-list-item>
         </md-list>
       </md-app-drawer>
