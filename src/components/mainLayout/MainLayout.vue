@@ -78,7 +78,19 @@
               to="/all-products"
               exact
             ></md-tab>
-            <md-tab id="tab-login" md-label="Login" to="/login" exact></md-tab>
+            <md-tab
+              id="tab-login"
+              v-if="!currentUser"
+              md-label="Login"
+              to="/login"
+              exact
+            ></md-tab>
+            <md-tab
+              id="tab-logout"
+              v-if="currentUser"
+              md-label="Logout"
+              @click="logout"
+            ></md-tab>
           </md-tabs>
         </div>
       </md-app-toolbar>
@@ -97,9 +109,13 @@
             <md-icon>move_to_inbox</md-icon>
             <span class="md-list-item-text">Products</span>
           </md-list-item>
-          <md-list-item to="/login">
+          <md-list-item v-if="!currentUser" to="/login">
             <md-icon>move_to_inbox</md-icon>
             <span class="md-list-item-text">Login</span>
+          </md-list-item>
+          <md-list-item v-if="currentUser" @click="logout">
+            <md-icon>move_to_inbox</md-icon>
+            <span class="md-list-item-text">Logout</span>
           </md-list-item>
         </md-list>
       </md-app-drawer>
@@ -153,7 +169,11 @@ export default {
     ...mapGetters("shoppingState", {
       getCartItems: "cartItemCount",
       getWishListCount: "getWishListCount"
-    })
+    }),
+    currentUser() {
+      console.log(this.$store.state.auth.loginStatus);
+      return this.$store.state.auth.loginStatus;
+    }
     // getCartItems() {
     //   return this.$store.getters.shoppingState.cartItemCount;
     // },
@@ -164,6 +184,9 @@ export default {
   methods: {
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
+    },
+    logout() {
+      this.$store.dispatch("auth/logout");
     }
   }
 };

@@ -57,3 +57,9 @@ export const setAuth = ({ commit }) => {
   commit("LOGIN_SUCCESS");
   router.push("/all-products");
 };
+
+export const logout = ({ commit }) => {
+  commit("LOGOUT");
+  localStorage.removeItem("uid");
+  router.push("/login");
+};

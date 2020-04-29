@@ -15,3 +15,7 @@ export const SIGN_IN_FAIL = state => {
 export const LOGIN_SUCCESS = state => {
   state.loginStatus = true;
 };
+
+export const LOGOUT = state => {
+  state.loginStatus = false;
+};
