@@ -1,17 +1,21 @@
 <template>
   <div id="app">
-    <MainLayout>
-      <router-view />
-    </MainLayout>
+    <component :is="layout">
+      <router-view :layout.sync="layout" />
+    </component>
   </div>
 </template>
 
 <script>
-import MainLayout from "./components/mainLayout/MainLayout";
+// if (localStorage.getItem("uid")) {
+//   this.$store.dispatch("authAction/setAuth");
+// } else {
+//   this.$router.push("/login");
+// }
 export default {
   name: "App",
-  components: {
-    MainLayout
-  }
+  data: () => ({
+    layout: `div`
+  })
 };
 </script>

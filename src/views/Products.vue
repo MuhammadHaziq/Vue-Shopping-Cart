@@ -82,6 +82,7 @@ import { mapState } from "vuex";
 import UpdateModal from "../components/modal/UpdateModal";
 import NewProduct from "../components/modal/NewProduct";
 import MessageSnackBar from "../components/snackBar/MessageSnackBar";
+import MainLayout from "../components/mainLayout/MainLayout";
 const toLower = text => {
   return text.toString().toLowerCase();
 };
@@ -103,6 +104,9 @@ export default {
     showDialog: false,
     addNewProduct: false
   }),
+  created() {
+    this.$emit("update:layout", MainLayout);
+  },
   computed: {
     ...mapState({
       products: state => state.products.allProducts

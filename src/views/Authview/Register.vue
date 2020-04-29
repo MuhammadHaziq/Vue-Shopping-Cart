@@ -122,6 +122,7 @@
 <script>
 import { validationMixin } from "vuelidate";
 import { required, email, minLength } from "vuelidate/lib/validators";
+import AuthLayout from "../../components/mainLayout/AuthLayout";
 
 export default {
   name: "Register",
@@ -155,6 +156,19 @@ export default {
       }
     }
   },
+  created() {
+    this.$emit("update:layout", AuthLayout);
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.loginStatus;
+    }
+  },
+  mounted() {
+    if (this.loggedIn) {
+      this.$router.push("/all-products");
+    }
+  },
   methods: {
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
@@ -174,7 +188,13 @@ export default {
     },
     saveUser() {
       this.sending = true;
-
+      const data = {
+        firstName: this.form.firstName,
+        lastName: this.form.lastName,
+        password: this.form.password,
+        email: this.form.email
+      };
+      this.$store.dispatch("auth/Register", data);
       // Instead of this timeout, here you can call your API
       // window.setTimeout(() => {
       //   this.lastUser = `${this.form.firstName} ${this.form.lastName}`;

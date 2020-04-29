@@ -15,6 +15,7 @@
 <script>
 import ProductCard from "@/components/cards/ProductCard";
 import MessageSnackBar from "../components/snackBar/MessageSnackBar";
+import MainLayout from "../components/mainLayout/MainLayout";
 
 import { mapState } from "vuex";
 export default {
@@ -27,6 +28,9 @@ export default {
     return {
       totalCards: 4
     };
+  },
+  created() {
+    this.$emit("update:layout", MainLayout);
   },
   computed: {
     ...mapState({

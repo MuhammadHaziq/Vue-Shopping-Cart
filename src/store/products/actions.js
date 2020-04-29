@@ -1,6 +1,6 @@
-import db from "@/firebase/firebaseConfig";
+import firebase from "@/firebase/firebaseConfig";
 import { EventBus } from "../../main";
-
+let db = firebase.firestore();
 export const getProducts = async ({ commit }) => {
   await db
     .collection("Products")

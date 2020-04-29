@@ -13,5 +13,10 @@ Vue.config.productionTip = false;
 Vue.filter("description", value => {
   return value.slice(0, 30);
 });
+if (localStorage.getItem("uid")) {
+  store.dispatch("authAction/setAuth");
+} else {
+  router.push("/login");
+}
 
 new Vue({ router, store, render: h => h(App) }).$mount("#app");

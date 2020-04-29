@@ -77,14 +77,19 @@
         </form>
       </div>
     </div>
+    <MessageSnackBar />
   </div>
 </template>
 
 <script>
 import { validationMixin } from "vuelidate";
 import { required, email, minLength } from "vuelidate/lib/validators";
-
+import AuthLayout from "../../components/mainLayout/AuthLayout";
+import MessageSnackBar from "../../components/snackBar/MessageSnackBar";
 export default {
+  components: {
+    MessageSnackBar
+  },
   name: "Login",
   mixins: [validationMixin],
   data: () => ({
@@ -107,6 +112,19 @@ export default {
       }
     }
   },
+  created() {
+    this.$emit("update:layout", AuthLayout);
+  },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.loginStatus;
+    }
+  },
+  mounted() {
+    if (this.loggedIn) {
+      this.$router.push("/all-products");
+    }
+  },
   methods: {
     getValidationClass(fieldName) {
       const field = this.$v.form[fieldName];
@@ -124,7 +142,11 @@ export default {
     },
     saveUser() {
       this.sending = true;
-
+      const data = {
+        email: this.form.email,
+        password: this.form.password
+      };
+      this.$store.dispatch("auth/Login", data);
       // Instead of this timeout, here you can call your API
       // window.setTimeout(() => {
       //   this.lastUser = `${this.form.firstName} ${this.form.lastName}`;
