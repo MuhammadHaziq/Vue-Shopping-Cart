@@ -83,6 +83,7 @@
 
 <script>
 import { validationMixin } from "vuelidate";
+import { mapState } from "vuex";
 import { required, email, minLength } from "vuelidate/lib/validators";
 import AuthLayout from "../../components/mainLayout/AuthLayout";
 import MessageSnackBar from "../../components/snackBar/MessageSnackBar";
@@ -116,13 +117,25 @@ export default {
     this.$emit("update:layout", AuthLayout);
   },
   computed: {
-    loggedIn() {
-      return this.$store.state.auth.loginStatus;
-    }
+    ...mapState({
+      loggedIn: state => state.auth.loginStatus,
+      isLoading: state => state.auth.isLoading
+    })
+    // loggedIn() {
+    //   return this.$store.state.auth.loginStatus;
+    // }
   },
   mounted() {
     if (this.loggedIn) {
       this.$router.push("/all-products");
+    }
+  },
+  watch: {
+    isLoading: function(newVal) {
+      if (newVal == false) {
+        this.sending = false;
+        // this.clearForm();
+      }
     }
   },
   methods: {

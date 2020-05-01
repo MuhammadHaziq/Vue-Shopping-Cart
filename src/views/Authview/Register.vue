@@ -123,6 +123,7 @@
 import { validationMixin } from "vuelidate";
 import { required, email, minLength } from "vuelidate/lib/validators";
 import AuthLayout from "../../components/mainLayout/AuthLayout";
+import { mapState } from "vuex";
 
 export default {
   name: "Register",
@@ -160,13 +161,22 @@ export default {
     this.$emit("update:layout", AuthLayout);
   },
   computed: {
-    loggedIn() {
-      return this.$store.state.auth.loginStatus;
-    }
+    ...mapState({
+      loggedIn: state => state.auth.loginStatus,
+      isLoading: state => state.auth.isLoading
+    })
   },
   mounted() {
     if (this.loggedIn) {
       this.$router.push("/all-products");
+    }
+  },
+  watch: {
+    isLoading: function(newVal) {
+      if (newVal == false) {
+        this.sending = false;
+        // this.clearForm();
+      }
     }
   },
   methods: {

@@ -1,3 +1,7 @@
+export const IS_LOADING = (state, status) => {
+  state.isLoading = status;
+};
+
 export const SIGN_UP_SUCCESS = state => {
   state.loginStatus = true;
 };
